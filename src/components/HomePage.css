@@ -1,0 +1,11 @@
+.background{
+    background-color: rgb(131, 131, 131);
+    min-height: 100vh;
+    background-image: url(/src/assets/P85.gif);
+    
+}
+
+.containerHome {
+    backdrop-filter: blur(5px) grayscale(.5) hue-rotate(100deg);
+    min-height: 100vh;
+}
