@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { CypherContext } from './Context/CypherContext'
 import { FieldCard } from './FieldCard'
 import { TextCard } from './TextCard'
+import { ErrorAlert } from './ErrorAlert'
 
 export const CypherTab = () => {
     const { a, b, textoEntrada, onInputChange, outputValue } = useContext(CypherContext)
@@ -17,6 +18,11 @@ export const CypherTab = () => {
                 <FieldCard titleCard={"Introduzca B:"} valueCard={b} onChange={onInputChange} disabled={false} name={"b"} />
             </div>
         </div>
+
+        <div className="mt-3">
+            <ErrorAlert />
+        </div>
+
         <div className="mt-3">
             <TextCard titleCard={"Texto Resultante:"} valueCard={outputValue} onChange={onInputChange} disabled={true} name={"salida"} />
         </div>

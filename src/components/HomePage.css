@@ -6,6 +6,6 @@
 }
 
 .containerHome {
-    backdrop-filter: blur(5px) grayscale(.5) hue-rotate(100deg);
+    backdrop-filter: blur(10px) grayscale(.5) hue-rotate(100deg);
     min-height: 100vh;
 }

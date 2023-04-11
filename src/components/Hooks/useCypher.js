@@ -126,7 +126,7 @@ export const useCypher = () => {
             let nuevoNumero = (x - b) * modInverse(a, 27);
             let nuevoNumero2 = nuevoNumero % 27;
 
-            if(nuevoNumero2 < 0){
+            if (nuevoNumero2 < 0) {
                 nuevoNumero2 = 27 + nuevoNumero2
             }
 
