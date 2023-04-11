@@ -18,6 +18,9 @@ export const CypherProvider = ({ children }) => {
     const [letraMasRepetidaNb, setletraMasRepetidaNb] = useState('')
     const [letraMasRepetidaNb2, setletraMasRepetidaNb2] = useState('')
 
+    const [calculoA, setCalculoA] = useState('')
+    const [calculoB, setCalculoB] = useState('')
+
     const [outputValue, setoutputValue] = useState('El Resultado Saldrá aquí')
     const [outputValueDecifrar, setoutputValueDecifrar] = useState('El Resultado Saldrá aquí')
 
@@ -55,13 +58,16 @@ export const CypherProvider = ({ children }) => {
     const onDecypher = () => {
 
         if (textoEntradaCifrado.length > 0) {
-            const { textoDecifrado, letraMasRepetidaEnv, letra2MasRepetidaEnv } = decifradoAfin(textoEntradaCifrado)
+            const { textoDecifrado, letraMasRepetidaEnv, letra2MasRepetidaEnv, a, b } = decifradoAfin(textoEntradaCifrado)
             setoutputValueDecifrar(textoDecifrado)
             setletraMasRepetida(letraMasRepetidaEnv.letra)
             setletraMasRepetidaNb(letraMasRepetidaEnv.veces)
 
             setletraMasRepetida2(letra2MasRepetidaEnv.letra)
             setletraMasRepetidaNb2(letra2MasRepetidaEnv.veces)
+
+            setCalculoA(a)
+            setCalculoB(b)
 
         } else {
             setoutputValueDecifrar('El resultado saldra aquí')
@@ -87,6 +93,9 @@ export const CypherProvider = ({ children }) => {
 
                 letraMasRepetidaNb,
                 letraMasRepetidaNb2,
+
+                calculoA,
+                calculoB,
 
                 error
             }

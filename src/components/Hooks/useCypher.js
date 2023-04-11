@@ -161,7 +161,9 @@ export const useCypher = () => {
 
             textoDecifrado,
             letraMasRepetidaEnv,
-            letra2MasRepetidaEnv
+            letra2MasRepetidaEnv,
+            a,
+            b
 
         }
 
