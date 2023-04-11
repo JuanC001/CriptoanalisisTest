@@ -2,26 +2,38 @@ import React, { useContext } from 'react'
 import { CypherContext } from './Context/CypherContext'
 import { TextCard } from './TextCard'
 import { Button } from 'react-bootstrap'
+import { Frecuencies } from './Frecuencies'
 
 export const DecypherTab = () => {
 
-  const {textoEntradaCifrado, outputValueDecifrar, onInputChange, onDecypher} = useContext(CypherContext)
+  const { textoEntradaCifrado, outputValueDecifrar, onInputChange, onDecypher, letraMasRepetidaLBL, letraMasRepetidaLBL2, letraMasRepetidaNb, letraMasRepetidaNb2 } = useContext(CypherContext)
 
   return (
     <>
 
       <div className="mt-3">
-        <TextCard name={"textoEntradaCifrado"} titleCard={"Introduce el Texto Cifrado:"} valueCard={textoEntradaCifrado} onChange={onInputChange}/>
+        <TextCard name={"textoEntradaCifrado"} titleCard={"Introduce el Texto Cifrado:"} valueCard={textoEntradaCifrado} onChange={onInputChange} />
       </div>
 
       <div className="mt-3">
 
-        <Button onClick={onDecypher}>Decifrar</Button>
+
+        <div className="row mt-3">
+          <div className="col-4" style={{display: 'flex', margin: 'auto', alignItems: 'center', justifyContent: 'center'}}>
+            <Button onClick={onDecypher} size='lg'>Decifrar</Button>
+            </div>
+          <div className="col-4">
+            <Frecuencies titleCard={'La letra mas repetida'} label={letraMasRepetidaLBL} valueCard={letraMasRepetidaNb} disabled={true} />
+          </div>
+          <div className="col-4">
+            <Frecuencies titleCard={'Segunda letra mas repetida'} label={letraMasRepetidaLBL2} valueCard={letraMasRepetidaNb2} disabled={true} />
+          </div>
+        </div>
 
       </div>
 
       <div className="mt-3 mb-1">
-        <TextCard name={"outputValueDecifrar"} titleCard={"Texto Decifrado:"} disabled={true} valueCard={outputValueDecifrar} onChange={onInputChange}/>
+        <TextCard name={"outputValueDecifrar"} titleCard={"Texto Decifrado:"} disabled={true} valueCard={outputValueDecifrar} onChange={onInputChange} />
       </div>
 
     </>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export const useCypher = () => {
 
@@ -37,6 +37,8 @@ export const useCypher = () => {
 
     const decifradoAfin = (stringText = String) => {
 
+        let letraMasRepetidaEnv = {}
+        let letra2MasRepetidaEnv = {}
         const ABC = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'
         const newText = stringText.toUpperCase()
         const letras = newText.split('').sort()
@@ -84,6 +86,13 @@ export const useCypher = () => {
 
             if (vecesRepetidas[i] === valorMax) {
                 letraMasRepetida = letrasUnicas[i]
+                const veces = vecesRepetidas[i]
+                letraMasRepetidaEnv = {
+
+                    letra: letraMasRepetida,
+                    veces
+
+                }
                 letrasUnicas.splice(i, 1)
                 vecesRepetidas.splice(i, 1)
                 break
@@ -97,6 +106,15 @@ export const useCypher = () => {
 
             if (vecesRepetidas[i] === valorMax) {
                 letra2MasRepetida = letrasUnicas[i]
+                const veces = vecesRepetidas[i]
+
+                letra2MasRepetidaEnv = {
+
+                    letra: letra2MasRepetida,
+                    veces
+
+                }
+
                 letrasUnicas.splice(i, 1)
                 vecesRepetidas.splice(i, 1)
                 break
@@ -109,11 +127,8 @@ export const useCypher = () => {
 
         //lmrI - b* inv(4,27) mod 27
         let resultParcial = lmrI - b
-
         let modInver = modInverse(4, 27)
         const a = (resultParcial * modInver) % 27
-
-        console.log(a)
 
         // m = (c – b) * inv (a, n) mod n.
 
@@ -132,9 +147,6 @@ export const useCypher = () => {
 
             const nuevaLetra = ABC.charAt(nuevoNumero2)
 
-            console.log(letra, ' ', nuevoNumero, ' ', nuevoNumero2, ' ', nuevaLetra)
-
-
             if (indice <= -1) {
                 textoDecifrado += " "
             }
@@ -145,7 +157,13 @@ export const useCypher = () => {
 
         };
 
-        return (textoDecifrado)
+        return {
+
+            textoDecifrado,
+            letraMasRepetidaEnv,
+            letra2MasRepetidaEnv
+
+        }
 
     }
 

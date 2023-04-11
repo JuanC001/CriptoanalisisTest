@@ -9,8 +9,15 @@ export const CypherProvider = ({ children }) => {
         a: '11',
         b: '4',
         textoEntrada: '',
-        textoEntradaCifrado: ''
+        textoEntradaCifrado: '',
     })
+
+    const [letraMasRepetidaLBL, setletraMasRepetida] = useState('')
+    const [letraMasRepetidaLBL2, setletraMasRepetida2] = useState('')
+
+    const [letraMasRepetidaNb, setletraMasRepetidaNb] = useState('')
+    const [letraMasRepetidaNb2, setletraMasRepetidaNb2] = useState('')
+
     const [outputValue, setoutputValue] = useState('El Resultado Saldrá aquí')
     const [outputValueDecifrar, setoutputValueDecifrar] = useState('El Resultado Saldrá aquí')
 
@@ -33,15 +40,11 @@ export const CypherProvider = ({ children }) => {
 
             setError(true)
 
-            console.log('a en n', numeroIncluidos.includes(parseInt(a)))
-            console.log('b en n', numeroIncluidos.includes(parseInt(b)))
-
         } else {
             setError(false)
         }
 
         if (textoEntrada.length > 0) {
-
             setoutputValue(cifradoAfin(textoEntrada, a, b))
         } else {
             setoutputValue('El Resultado Saldrá aquí')
@@ -52,7 +55,14 @@ export const CypherProvider = ({ children }) => {
     const onDecypher = () => {
 
         if (textoEntradaCifrado.length > 0) {
-            setoutputValueDecifrar(decifradoAfin(textoEntradaCifrado))
+            const { textoDecifrado, letraMasRepetidaEnv, letra2MasRepetidaEnv } = decifradoAfin(textoEntradaCifrado)
+            setoutputValueDecifrar(textoDecifrado)
+            setletraMasRepetida(letraMasRepetidaEnv.letra)
+            setletraMasRepetidaNb(letraMasRepetidaEnv.veces)
+
+            setletraMasRepetida2(letra2MasRepetidaEnv.letra)
+            setletraMasRepetidaNb2(letra2MasRepetidaEnv.veces)
+
         } else {
             setoutputValueDecifrar('El resultado saldra aquí')
         }
@@ -71,6 +81,13 @@ export const CypherProvider = ({ children }) => {
                 outputValue,
                 textoEntradaCifrado,
                 outputValueDecifrar,
+
+                letraMasRepetidaLBL,
+                letraMasRepetidaLBL2,
+
+                letraMasRepetidaNb,
+                letraMasRepetidaNb2,
+
                 error
             }
         }>
