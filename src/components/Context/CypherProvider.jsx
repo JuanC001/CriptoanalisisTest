@@ -15,6 +15,9 @@ export const CypherProvider = ({ children }) => {
     const [letraMasRepetidaLBL, setletraMasRepetida] = useState('')
     const [letraMasRepetidaLBL2, setletraMasRepetida2] = useState('')
 
+    const [letraMasRepetitaPer, setLetraMasRepetitaPer] = useState(0)
+    const [letraMasRepetitaPer2, setLetraMasRepetitaPer2] = useState(0)
+
     const [letraMasRepetidaNb, setletraMasRepetidaNb] = useState('')
     const [letraMasRepetidaNb2, setletraMasRepetidaNb2] = useState('')
 
@@ -64,9 +67,11 @@ export const CypherProvider = ({ children }) => {
             setoutputValueDecifrar(textoDecifrado)
             setletraMasRepetida(letrasMasRepetidas[0].letra)
             setletraMasRepetidaNb(letrasMasRepetidas[0].veces)
+            setLetraMasRepetitaPer(letrasMasRepetidas[0].porcentaje)
 
             setletraMasRepetida2(letrasMasRepetidas[1].letra)
             setletraMasRepetidaNb2(letrasMasRepetidas[1].veces)
+            setLetraMasRepetitaPer2(letrasMasRepetidas[1].porcentaje)
 
             setCalculoA(a)
             setCalculoB(b)
@@ -97,6 +102,9 @@ export const CypherProvider = ({ children }) => {
 
                 letraMasRepetidaNb,
                 letraMasRepetidaNb2,
+
+                letraMasRepetitaPer,
+                letraMasRepetitaPer2,
 
                 calculoA,
                 calculoB,

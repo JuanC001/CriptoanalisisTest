@@ -59,6 +59,8 @@ export const useCypher = () => {
 
         }
 
+        console.log(letrasMasRepetidas)
+
         return {
 
             numeroCaracteres,
@@ -69,37 +71,6 @@ export const useCypher = () => {
 
         }
 
-    }
-
-    function removeAccents(text) {
-        const sustitutions = {
-            àáâãäå: "a",
-            ÀÁÂÃÄÅ: "A",
-            èéêë: "e",
-            ÈÉÊË: "E",
-            ìíîï: "i",
-            ÌÍÎÏ: "I",
-            òóôõö: "o",
-            ÒÓÔÕÖ: "O",
-            ùúûü: "u",
-            ÙÚÛÜ: "U",
-            ýÿ: "y",
-            ÝŸ: "Y",
-            ß: "ss",
-        };
-        // Devuelve un valor si 'letter' esta incluido en la clave
-        function getLetterReplacement(letter, replacements) {
-            const findKey = Object.keys(replacements).reduce(
-                (origin, item, index) => (item.includes(letter) ? item : origin),
-                false
-            );
-            return findKey !== false ? replacements[findKey] : letter;
-        }
-        // Recorre letra por letra en busca de una sustitución
-        return text
-            .split("")
-            .map((letter) => getLetterReplacement(letter, sustitutions))
-            .join("");
     }
 
     const calcularA = (letraMasRepetida = String, b) => {
@@ -162,10 +133,14 @@ export const useCypher = () => {
 
                 if (vecesRepetidas[j] === valorMax) {
 
+                    let porcentaje = 100 * vecesRepetidas[j] / numeroCaracteres
+                    porcentaje = cutNumber(porcentaje)
+
                     letrasMasRepetidas.push({
 
                         letra: letrasUnicas[j],
-                        veces: vecesRepetidas[j]
+                        veces: vecesRepetidas[j],
+                        porcentaje
 
                     })
 
@@ -185,6 +160,12 @@ export const useCypher = () => {
             letrasMasRepetidas
 
         }
+
+    }
+
+    const cutNumber = (num) => {
+
+        return +(Math.round(num + "e+2") + "e-2");
 
     }
 
@@ -218,6 +199,37 @@ export const useCypher = () => {
 
     function mod(n, m) {
         return ((n % m) + m) % m;
+    }
+
+    function removeAccents(text) {
+        const sustitutions = {
+            àáâãäå: "a",
+            ÀÁÂÃÄÅ: "A",
+            èéêë: "e",
+            ÈÉÊË: "E",
+            ìíîï: "i",
+            ÌÍÎÏ: "I",
+            òóôõö: "o",
+            ÒÓÔÕÖ: "O",
+            ùúûü: "u",
+            ÙÚÛÜ: "U",
+            ýÿ: "y",
+            ÝŸ: "Y",
+            ß: "ss",
+        };
+        // Devuelve un valor si 'letter' esta incluido en la clave
+        function getLetterReplacement(letter, replacements) {
+            const findKey = Object.keys(replacements).reduce(
+                (origin, item, index) => (item.includes(letter) ? item : origin),
+                false
+            );
+            return findKey !== false ? replacements[findKey] : letter;
+        }
+        // Recorre letra por letra en busca de una sustitución
+        return text
+            .split("")
+            .map((letter) => getLetterReplacement(letter, sustitutions))
+            .join("");
     }
 
     return {

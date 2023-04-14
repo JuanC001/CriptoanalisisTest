@@ -6,7 +6,7 @@ import { Frecuencies } from './Frecuencies'
 
 export const DecypherTab = () => {
 
-  const { textoEntradaCifrado, outputValueDecifrar, onInputChange, onDecypher, letraMasRepetidaLBL, letraMasRepetidaLBL2, letraMasRepetidaNb, letraMasRepetidaNb2, calculoA, calculoB, cantidadCaracteres } = useContext(CypherContext)
+  const { textoEntradaCifrado, outputValueDecifrar, onInputChange, onDecypher, letraMasRepetidaLBL, letraMasRepetidaLBL2, letraMasRepetidaNb, letraMasRepetidaNb2, letraMasRepetitaPer, letraMasRepetitaPer2, calculoA, calculoB, cantidadCaracteres } = useContext(CypherContext)
 
   const [invertir, setInvertir] = useState(false)
 
@@ -36,10 +36,10 @@ export const DecypherTab = () => {
             <Frecuencies titleCard={'Calculo B'} label={'B'} valueCard={calculoB} disabled={true} />
           </div>
           <div className="col-3">
-            <Frecuencies titleCard={'La letra mas repetida'} label={letraMasRepetidaLBL} valueCard={letraMasRepetidaNb} disabled={true} />
+            <Frecuencies titleCard={'Primera letra mas repetida'} label={letraMasRepetidaLBL} valueCard={letraMasRepetidaNb} disabled={true} percentage={letraMasRepetitaPer} />
           </div>
           <div className="col-3">
-            <Frecuencies titleCard={'Segunda letra mas repetida'} label={letraMasRepetidaLBL2} valueCard={letraMasRepetidaNb2} disabled={true} />
+            <Frecuencies titleCard={'Segunda letra mas repetida'} label={letraMasRepetidaLBL2} valueCard={letraMasRepetidaNb2} disabled={true} percentage={letraMasRepetitaPer2} />
           </div>
         </div>
 
