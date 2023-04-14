@@ -6,26 +6,20 @@ export const useCypher = () => {
 
         let cifrado = ''
         const ABC = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'
-        const newText = stringText.toUpperCase()
 
-        for (let i = 0; i < newText.length; i++) {
+        stringText = removeAccents(stringText.toUpperCase())
 
-            const letra = newText.charAt(i);
-            const indice = ABC.indexOf(letra);
+        // C = a * m + b mod n
 
-            const x = indice
+        for (let i = 0; i < stringText.length; i++) {
 
-            let nuevoNumero = (a * x) + parseInt(b);
-            let nuevoNumero2 = nuevoNumero % 27;
+            const letraActual = stringText.charAt(i);
+            const m = ABC.indexOf(stringText.charAt(i));
 
-            const nuevaLetra = ABC.charAt(nuevoNumero2)
+            let c = (parseInt(a) * m + parseInt(b)) % 27
 
-            if (indice === -1) {
-                cifrado += " "
-            }
-
-            if (indice !== -1) {
-                cifrado += nuevaLetra
+            if (m !== -1) {
+                cifrado += ABC.charAt(c)
             }
 
         };
@@ -35,135 +29,160 @@ export const useCypher = () => {
 
     }
 
-    const decifradoAfin = (stringText = String) => {
+    const decifradoAfin = (stringText = String, invertido = Boolean) => {
 
-        let letraMasRepetidaEnv = {}
-        let letra2MasRepetidaEnv = {}
+        const numeroAux = invertido ? 1 : 0
         const ABC = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'
-        const newText = stringText.toUpperCase()
-        const letras = newText.split('').sort()
-        const letrasUnicas = []
-        const vecesRepetidas = []
-        let textoDecifrado = ""
-        let contador = 1;
 
-        for (let i = 0; i < letras.length; i++) {
+        stringText = stringText.toUpperCase()
+        const { numeroCaracteres, letrasMasRepetidas } = calcularMaximo(stringText)
+        const b = getIndex(letrasMasRepetidas[1 - numeroAux], ABC)
+        const a = calcularA(getIndex(letrasMasRepetidas[0 + numeroAux], ABC), b)
 
-            if (letras[i] === letras[i + 1]) {
-
-                contador++;
-
-            } else {
-
-                vecesRepetidas.push(contador);
-                letrasUnicas.push(letras[i]);
-                contador = 1;
-
-            }
-
-        }
-
-        let letraMasRepetida = "";
-        let letra2MasRepetida = "";
-
-        if (letrasUnicas[0] !== "A" || letrasUnicas[1] !== "B") {
-
-            letrasUnicas.shift();
-            vecesRepetidas.shift();
-
-        }
-
-        if (letrasUnicas[0] !== "A" || letrasUnicas[1] !== "B") {
-
-            letrasUnicas.shift();
-            vecesRepetidas.shift();
-
-        }
-
-        let valorMax = Math.max(...vecesRepetidas)
-
-        for (let i = 0; i < vecesRepetidas.length; i++) {
-
-            if (vecesRepetidas[i] === valorMax) {
-                letraMasRepetida = letrasUnicas[i]
-                const veces = vecesRepetidas[i]
-                letraMasRepetidaEnv = {
-
-                    letra: letraMasRepetida,
-                    veces
-
-                }
-                letrasUnicas.splice(i, 1)
-                vecesRepetidas.splice(i, 1)
-                break
-            }
-
-        }
-
-        valorMax = Math.max(...vecesRepetidas)
-
-        for (let i = 0; i < vecesRepetidas.length; i++) {
-
-            if (vecesRepetidas[i] === valorMax) {
-                letra2MasRepetida = letrasUnicas[i]
-                const veces = vecesRepetidas[i]
-
-                letra2MasRepetidaEnv = {
-
-                    letra: letra2MasRepetida,
-                    veces
-
-                }
-
-                letrasUnicas.splice(i, 1)
-                vecesRepetidas.splice(i, 1)
-                break
-            }
-
-        }
-
-        const b = ABC.indexOf(letra2MasRepetida)
-        const lmrI = ABC.indexOf(letraMasRepetida)
-
-        //lmrI - b* inv(4,27) mod 27
-        let resultParcial = lmrI - b
-        let modInver = modInverse(4, 27)
-        const a = (resultParcial * modInver) % 27
+        let textoDecifrado = ''
 
         // m = (c – b) * inv (a, n) mod n.
 
-        for (let i = 0; i < newText.length; i++) {
+        for (let i = 0; i < stringText.length; i++) {
 
-            const letra = newText.charAt(i);
-            const indice = ABC.indexOf(letra);
-            const x = indice
+            const letraActual = stringText.charAt(i)
+            const c = parseInt(ABC.indexOf(letraActual))
+            let m = (c - b) * modInverse(a, 27) % 27
 
-            let nuevoNumero = (x - b) * modInverse(a, 27);
-            let nuevoNumero2 = nuevoNumero % 27;
-
-            if (nuevoNumero2 < 0) {
-                nuevoNumero2 = 27 + nuevoNumero2
+            if (m < 0) {
+                m += 27
             }
 
-            const nuevaLetra = ABC.charAt(nuevoNumero2)
-
-            if (indice <= -1) {
-                textoDecifrado += " "
+            if (c !== -1) {
+                textoDecifrado += ABC.charAt(m)
             }
 
-            if (indice !== -1) {
-                textoDecifrado += nuevaLetra
-            }
-
-        };
+        }
 
         return {
 
+            numeroCaracteres,
+            letrasMasRepetidas,
             textoDecifrado,
-            letraMasRepetidaEnv,
-            letra2MasRepetidaEnv,
             a,
             b
+
+        }
+
+    }
+
+    function removeAccents(text) {
+        const sustitutions = {
+            àáâãäå: "a",
+            ÀÁÂÃÄÅ: "A",
+            èéêë: "e",
+            ÈÉÊË: "E",
+            ìíîï: "i",
+            ÌÍÎÏ: "I",
+            òóôõö: "o",
+            ÒÓÔÕÖ: "O",
+            ùúûü: "u",
+            ÙÚÛÜ: "U",
+            ýÿ: "y",
+            ÝŸ: "Y",
+            ß: "ss",
+        };
+        // Devuelve un valor si 'letter' esta incluido en la clave
+        function getLetterReplacement(letter, replacements) {
+            const findKey = Object.keys(replacements).reduce(
+                (origin, item, index) => (item.includes(letter) ? item : origin),
+                false
+            );
+            return findKey !== false ? replacements[findKey] : letter;
+        }
+        // Recorre letra por letra en busca de una sustitución
+        return text
+            .split("")
+            .map((letter) => getLetterReplacement(letter, sustitutions))
+            .join("");
+    }
+
+    const calcularA = (letraMasRepetida = String, b) => {
+
+        //a = (letrasMasRepetida - b) * inv(4,27) % 27
+        let a = (letraMasRepetida - b) * modInverse(4, 27) % 27
+        if (a < 0) {
+            a += 27
+        }
+
+        return a;
+
+    }
+
+    const getIndex = (letra, ABC = String) => {
+
+        return ABC.indexOf(letra.letra);
+
+    }
+
+    const calcularMaximo = (texto = String) => {
+
+        const letras = texto.split('').sort()
+
+        let numeroCaracteres = 0
+
+        let letrasUnicas = []
+        let vecesRepetidas = []
+
+        let letrasMasRepetidas = []
+
+        let contador = 1
+        for (let j = 0; j < texto.length; j++) {
+
+            if (letras[j] !== " " && letras[j] !== "\n") {
+
+                numeroCaracteres++;
+
+                if (letras[j] === letras[j + 1]) {
+
+                    contador++;
+
+                } else {
+
+                    letrasUnicas.push(letras[j])
+                    vecesRepetidas.push(contador)
+                    contador = 1;
+
+                }
+
+            }
+
+        }
+
+        for (let i = 0; i < 2; i++) {
+
+            let valorMax = Math.max(...vecesRepetidas)
+
+            for (let j = 0; j < vecesRepetidas.length; j++) {
+
+                if (vecesRepetidas[j] === valorMax) {
+
+                    letrasMasRepetidas.push({
+
+                        letra: letrasUnicas[j],
+                        veces: vecesRepetidas[j]
+
+                    })
+
+                    letrasUnicas.splice(j, 1)
+                    vecesRepetidas.splice(j, 1)
+                    break;
+
+                }
+
+            }
+
+        }
+
+        return {
+
+            numeroCaracteres,
+            letrasMasRepetidas
 
         }
 
