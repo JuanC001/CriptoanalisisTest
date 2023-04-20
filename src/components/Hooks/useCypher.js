@@ -35,7 +35,7 @@ export const useCypher = () => {
         const ABC = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'
 
         stringText = stringText.toUpperCase()
-        const { numeroCaracteres, letrasMasRepetidas } = calcularMaximo(stringText)
+        const { numeroCaracteres, letrasMasRepetidas, letrasEnv } = calcularMaximo(stringText)
         const b = getIndex(letrasMasRepetidas[1 - numeroAux], ABC)
         const a = calcularA(getIndex(letrasMasRepetidas[0 + numeroAux], ABC), b)
 
@@ -59,15 +59,14 @@ export const useCypher = () => {
 
         }
 
-        console.log(letrasMasRepetidas)
-
         return {
 
             numeroCaracteres,
             letrasMasRepetidas,
             textoDecifrado,
             a,
-            b
+            b,
+            letrasEnv,
 
         }
 
@@ -99,8 +98,9 @@ export const useCypher = () => {
 
         let letrasUnicas = []
         let vecesRepetidas = []
-
         let letrasMasRepetidas = []
+
+        let letrasEnv = []
 
         let contador = 1
         for (let j = 0; j < texto.length; j++) {
@@ -117,6 +117,14 @@ export const useCypher = () => {
 
                     letrasUnicas.push(letras[j])
                     vecesRepetidas.push(contador)
+
+                    letrasEnv.push({
+
+                        letra: letras[j],
+                        vecesRepetidas: contador
+
+                    })
+
                     contador = 1;
 
                 }
@@ -154,10 +162,14 @@ export const useCypher = () => {
 
         }
 
+        console.log(letrasEnv)
+
         return {
 
             numeroCaracteres,
-            letrasMasRepetidas
+            letrasMasRepetidas,
+            letrasEnv,
+           
 
         }
 
@@ -217,7 +229,6 @@ export const useCypher = () => {
             ÝŸ: "Y",
             ß: "ss",
         };
-        // Devuelve un valor si 'letter' esta incluido en la clave
         function getLetterReplacement(letter, replacements) {
             const findKey = Object.keys(replacements).reduce(
                 (origin, item, index) => (item.includes(letter) ? item : origin),
@@ -225,7 +236,6 @@ export const useCypher = () => {
             );
             return findKey !== false ? replacements[findKey] : letter;
         }
-        // Recorre letra por letra en busca de una sustitución
         return text
             .split("")
             .map((letter) => getLetterReplacement(letter, sustitutions))

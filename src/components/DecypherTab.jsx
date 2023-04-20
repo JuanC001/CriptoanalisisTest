@@ -1,14 +1,16 @@
 import React, { useContext, useState } from 'react'
 import { CypherContext } from './Context/CypherContext'
 import { TextCard } from './TextCard'
-import { Button } from 'react-bootstrap'
+import { Button, Modal, Table } from 'react-bootstrap'
 import { Frecuencies } from './Frecuencies'
 
 export const DecypherTab = () => {
 
-  const { textoEntradaCifrado, outputValueDecifrar, onInputChange, onDecypher, letraMasRepetidaLBL, letraMasRepetidaLBL2, letraMasRepetidaNb, letraMasRepetidaNb2, letraMasRepetitaPer, letraMasRepetitaPer2, calculoA, calculoB, cantidadCaracteres } = useContext(CypherContext)
+  const { textoEntradaCifrado, outputValueDecifrar, onInputChange, onDecypher, letraMasRepetidaLBL, letraMasRepetidaLBL2, letraMasRepetidaNb, letraMasRepetidaNb2, letraMasRepetitaPer, letraMasRepetitaPer2, calculoA, calculoB, cantidadCaracteres, letrasRepetidas } = useContext(CypherContext)
 
   const [invertir, setInvertir] = useState(false)
+
+  const [showModal, setshowModal] = useState(false)
 
   const invertirFunction = () => {
     setInvertir(!invertir)
@@ -56,8 +58,52 @@ export const DecypherTab = () => {
       </div>
 
       <div className="mt-3 mb-1 m-auto" style={{ display: 'flex', margin: 'auto', alignContent: 'center', justifyContent: 'center' }}>
-        <Button onClick={invertirFunction}>Invertir</Button>
+        <Button className='mr-1 ml-1' onClick={invertirFunction}>Invertir</Button>
+        <Button className='mr-1 ml-1' onClick={e => setshowModal(true)}>Tabla de Frecuencias</Button>
+
       </div>
+
+      <Modal show={showModal} onHide={e => setshowModal(false)}>
+
+        <Modal.Header closeButton>
+
+          Tabla de Frecuencias
+
+        </Modal.Header>
+        <Modal.Body>
+
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Letra</th>
+                <th>#</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              {
+                letrasRepetidas.map((letra) => {
+
+                  console.log(letra)
+                  return (
+                    <>
+
+                      <tr>
+                        <th>{letra.letra}</th>
+                        <th>{letra.vecesRepetidas}</th>
+                      </tr>
+
+                    </>)
+
+                })
+              }
+
+            </tbody>
+          </Table>
+
+        </Modal.Body>
+
+      </Modal>
 
     </>
   )
