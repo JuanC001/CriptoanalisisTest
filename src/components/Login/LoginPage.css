@@ -1,0 +1,166 @@
+.loginBackground {
+
+    height: 100vh;
+    overflow: hidden;
+    background: rgb(34, 0, 115);
+    background: radial-gradient(circle, rgba(76, 0, 255, 1) 0%, rgb(43, 0, 141) 100%);
+
+
+}
+
+.loginSection {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.textContainer {
+
+    position: absolute;
+    top: 45%;
+    left: 10%;
+    width: 425px;
+    height: 100px;
+
+}
+
+.textMain {
+    position: absolute;
+    display: flex;
+    font-family: monospace;
+    color: white;
+    white-space: nowrap;
+    border-right: 4px solid transparent;
+    font-size: 4rem;
+
+    width: 13ch;
+
+    animation-name: typingd, blink;
+    animation-duration: 5s, 0.5s;
+    animation-iteration-count: infinite, infinite;
+    animation-timing-function: steps(13);
+    animation-direction: alternate;
+
+    overflow: hidden;
+
+}
+
+.textMain2 {
+    position: absolute;
+    display: flex;
+    font-family: monospace;
+    color: transparent;
+    white-space: nowrap;
+    border-right: 4px solid transparent;
+    font-size: 4rem;
+
+    width: 13ch;
+
+    animation-name: typingd2, blink;
+    animation-duration: 5s, 0.5s;
+    animation-iteration-count: infinite, infinite;
+    animation-timing-function: steps(13);
+    animation-direction: alternate;
+    animation-delay: 5s;
+
+    overflow: hidden;
+
+}
+
+
+
+@keyframes typingd {
+    0% {
+        width: 0;
+        color: white;
+    }
+
+    50% {
+        color: white;
+    }
+
+    51% {
+        width: 0;
+        color: white;
+    }
+
+}
+
+@keyframes typingd2 {
+    0% {
+        width: 0;
+        color: white;
+    }
+
+    50% {
+        color: white;
+        opacity: 100%;
+    }
+
+    51% {
+        width: 0;
+        color: white;
+    }
+
+    100% {
+        color: white;
+    }
+
+}
+
+
+@keyframes blink {
+    50% {
+        border-color: white;
+    }
+}
+
+.boxGrid {
+
+    position: relative;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+
+}
+
+.loginCard {
+
+    height: 100vh;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: all 0.3s;
+
+}
+
+.cardPart {
+
+    width: 50%;
+    transition: all 0.5s ease-in-out;
+
+}
+
+@media only screen and (max-width: 1200px) {
+    .loginCard {
+        width: 90%;
+    }
+
+    .textContainer {
+        top: 10%;
+        left: 35%;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .cardPart {
+        width: 90%;
+    }
+
+    .textContainer {
+        top: 10%;
+        left: 12%;
+    }
+}
