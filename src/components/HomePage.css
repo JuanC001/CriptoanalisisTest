@@ -1,11 +1,68 @@
-.background{
+.background {
     background-color: rgb(131, 131, 131);
     min-height: 100vh;
     background-image: url(/src/assets/P85.gif);
-    
+    overflow-x: hidden;
+
 }
 
 .containerHome {
     backdrop-filter: blur(1px) grayscale(.5) hue-rotate(100deg);
     min-height: 100vh;
+}
+
+.containerx {
+
+    overflow-x: hidden;
+    height: 100vh;
+
+}
+
+.startAnim {
+
+    position: absolute;
+    top: 0%;
+    height: 100vh;
+    width: 100%;
+    background: rgb(34, 0, 115);
+    background: radial-gradient(circle, rgba(76, 0, 255, 1) 0%, rgb(43, 0, 141) 100%);
+
+    animation: start 0.5s forwards;
+
+}
+
+@keyframes start {
+
+    0% {
+        opacity: 100%;
+    }
+
+    99% {
+        opacity: 0%;
+        width: 100%;
+
+    }
+
+    100% {
+        opacity: 0%;
+        width: 0;
+    }
+}
+
+@keyframes end {
+
+    0% {
+        opacity: 0%;
+        width: 0;
+    }
+    1% {
+        opacity: 0%;
+        width: 100%;
+
+    }
+
+    100% {
+        opacity: 100%;
+    }
+    
 }

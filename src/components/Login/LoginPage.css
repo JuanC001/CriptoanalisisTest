@@ -132,7 +132,7 @@
 .loginCard {
 
     height: 100vh;
-    width: 50%;
+    width: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -144,7 +144,10 @@
 .cardPart {
 
     width: 50%;
+    height: 100%;
     transition: all 0.5s ease-in-out;
+    animation: SmoothAppear 0.3s ease-in-out;
+    overflow: hidden;
 
 }
 
@@ -189,4 +192,54 @@
     .textMain2 {
         font-size: 40px;
     }
+}
+
+.alerts {
+
+    display: flex;
+    justify-content: center;
+
+}
+
+.alertError {
+
+    text-align: center;
+    white-space: nowrap;
+    animation: SmoothAppear 0.5s 0.2s ease-in-out forwards;
+    width: 40ch;
+    height: 6ch;
+    overflow: hidden;
+    opacity: 0%;
+    
+
+}
+
+@keyframes SmoothAppear {
+
+    0% {
+        opacity: 0%;
+        width: 0;
+    }
+
+    100% {
+        opacity: 100%;
+        width: 40ch;
+    }
+
+
+
+}
+
+@keyframes SmoothDisappear {
+
+    0% {
+        opacity: 100%;
+        width: 40ch;
+    }
+
+    100% {
+        opacity: 0%;
+        width: 0;
+    }
+
 }
