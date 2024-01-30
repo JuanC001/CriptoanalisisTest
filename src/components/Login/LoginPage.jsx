@@ -24,7 +24,7 @@ export const LoginPage = () => {
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
 
-    const [verified, setVerified] = useState(false)
+    const [verified, setVerified] = useState(true)
     const [disabledLogin, setdisabledLogin] = useState(true)
 
     const [error, setError] = useState(false)
